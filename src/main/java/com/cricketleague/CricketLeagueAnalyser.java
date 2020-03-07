@@ -12,9 +12,14 @@ import java.util.*;
 
 public class CricketLeagueAnalyser {
     List <MostRunCsv> cricketCSVList;
+    Map<SortedField,Comparator<MostRunCsv>> sortedMap;
 
     public CricketLeagueAnalyser() {
         this.cricketCSVList = new ArrayList<>();
+        this.sortedMap = new HashMap<>();
+
+        this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.battingAvg));
+        this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
     }
 
     public int loadCricketData(String csvFilePath) {
@@ -23,48 +28,38 @@ public class CricketLeagueAnalyser {
             csvToBeanBuilder.withType(MostRunCsv.class);
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<MostRunCsv> csvToBean = csvToBeanBuilder.build();
-            Iterator<MostRunCsv> censusCSVIterator = csvToBean.iterator();
+            Iterator<MostRunCsv> mostRunCsvIterator = csvToBean.iterator();
             int numOfEateries=0;
-            while (censusCSVIterator.hasNext()){
+            while (mostRunCsvIterator.hasNext()){
                 numOfEateries++;
-                MostRunCsv runsData = censusCSVIterator.next();
-                cricketCSVList.add(runsData);
+                MostRunCsv runsData = mostRunCsvIterator.next();
+               cricketCSVList.add(runsData);
             }
+
             return numOfEateries;
         }catch (IOException e){
            throw  new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
         }
     }
 
-    public String getSortedCricketData() {
+    public String getSortedCricketData(SortedField sortedField) {
 
         if(cricketCSVList == null || cricketCSVList.size() == 0){
             throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
-        Comparator<MostRunCsv> cricketComparator = Comparator.comparing(census -> census.battingAvg);
-        this.sort(cricketCSVList,cricketComparator);
+        Comparator<MostRunCsv> cricketComparator = Comparator.comparing(ipldata -> ipldata.battingAvg);
+        this.sort(cricketCSVList,this.sortedMap.get(sortedField));
         Collections.reverse(cricketCSVList);
         String sortedStateCensus=new Gson().toJson(cricketCSVList);
         return sortedStateCensus;
     }
 
-    public String getSortedStrikeRateData() {
-        if(cricketCSVList == null || cricketCSVList.size() == 0){
-            throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
-        }
-        Comparator<MostRunCsv> cricketComparator = Comparator.comparing(census -> census.strikRate);
-        this.sort(cricketCSVList,cricketComparator);
-        Collections.reverse(cricketCSVList);
-        String sortedStateCensus=new Gson().toJson(cricketCSVList);
-        return sortedStateCensus;
-    }
-
-    private void sort(List<MostRunCsv> cricketCSVList, Comparator<MostRunCsv> censusComparator) {
+    private void sort(List<MostRunCsv> cricketCSVList, Comparator<MostRunCsv> cricketComparator) {
         for(int i=0;i<cricketCSVList.size()-1;i++){
             for(int j=0;j<cricketCSVList.size()-i-1;j++){
                 MostRunCsv run1 = cricketCSVList.get(j);
                 MostRunCsv run2 = cricketCSVList.get(j+1);
-                if(censusComparator.compare(run1,run2)>0){
+                if(cricketComparator.compare(run1,run2)>0){
                     cricketCSVList.set(j,run2);
                     cricketCSVList.set(j+1,run1);
                 }
