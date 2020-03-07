@@ -9,10 +9,9 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.StreamSupport;
 
 public class CricketLeagueAnalyser {
-    List <MostRunCsv> cricketCSVList=null;
+    List <MostRunCsv> cricketCSVList;
 
     public CricketLeagueAnalyser() {
         this.cricketCSVList = new ArrayList<>();
@@ -49,6 +48,17 @@ public class CricketLeagueAnalyser {
         return sortedStateCensus;
     }
 
+    public String getSortedStrikeRateData() {
+        if(cricketCSVList == null || cricketCSVList.size() == 0){
+            throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
+        }
+        Comparator<MostRunCsv> cricketComparator = Comparator.comparing(census -> census.strikRate);
+        this.sort(cricketCSVList,cricketComparator);
+        Collections.reverse(cricketCSVList);
+        String sortedStateCensus=new Gson().toJson(cricketCSVList);
+        return sortedStateCensus;
+    }
+
     private void sort(List<MostRunCsv> cricketCSVList, Comparator<MostRunCsv> censusComparator) {
         for(int i=0;i<cricketCSVList.size()-1;i++){
             for(int j=0;j<cricketCSVList.size()-i-1;j++){
@@ -61,4 +71,5 @@ public class CricketLeagueAnalyser {
             }
         }
     }
+
 }

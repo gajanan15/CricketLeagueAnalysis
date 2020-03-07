@@ -16,12 +16,22 @@ public class CricketLeagueAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusCSVFileReturnsCorrectRecords() {
+    public void givenCricketMostRunData_WhenSorted_ShouldReturnMostRun() {
         try {
             cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData();
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(83.2, mostRunCsv[0].battingAvg, 0.0);
+        }catch (CricketAnalyserException e){}
+    }
+
+    @Test
+    public void givenCricketMostRunData_When_Sorted_ShouldReturnStrikeRate() {
+        try{
+            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            String sortedStrikeRateData = cricketLeagueAnalyser.getSortedStrikeRateData();
+            MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedStrikeRateData, MostRunCsv[].class);
+            Assert.assertEquals(333.33,mostRunCsv[0].strikRate,0.0);
         }catch (CricketAnalyserException e){}
     }
 }
