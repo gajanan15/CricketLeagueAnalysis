@@ -54,4 +54,14 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals(204.81,mostRunCsv[0].strikRate,0.0);
         }catch (CricketAnalyserException e){}
     }
+
+    @Test
+    public void givenCricketMostRunData_WhenStrikeRates_ShouldReturnMaximumAverages() {
+        try{
+            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.AVG);
+            MostRunCsv[] mostRunCsvs = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
+            Assert.assertEquals(134.62,mostRunCsvs[0].strikRate,0.0);
+        }catch (CricketAnalyserException e){}
+    }
 }
