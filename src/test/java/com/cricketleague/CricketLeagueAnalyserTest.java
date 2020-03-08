@@ -44,4 +44,14 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals(83,mostRunCsv[0].six+mostRunCsv[0].four);
         }catch (CricketAnalyserException e){}
     }
+
+    @Test
+    public void givenCricketMostSixAndFour_When_Sorted_ShouldReturnMaximumStrikeRates() {
+        try{
+            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.MAXIMUM_SIX);
+            MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
+            Assert.assertEquals(204.81,mostRunCsv[0].strikRate,0.0);
+        }catch (CricketAnalyserException e){}
+    }
 }
