@@ -21,6 +21,7 @@ public class CricketLeagueAnalyser {
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.battingAvg));
         this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
         this.sortedMap.put(SortedField.MAXIMUM_SIX,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
+        this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
     }
 
     public int loadCricketData(String csvFilePath) {
