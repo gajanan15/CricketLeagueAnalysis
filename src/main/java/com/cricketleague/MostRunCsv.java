@@ -9,4 +9,10 @@ public class MostRunCsv {
 
     @CsvBindByName(column = "SR",required = true)
     public double strikRate;
+
+    @CsvBindByName(column = "4s",required = true)
+    public int four;
+
+    @CsvBindByName(column = "6s",required = true)
+    public int six;
 }

@@ -20,6 +20,7 @@ public class CricketLeagueAnalyser {
 
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.battingAvg));
         this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.MAXIMUM_SIX,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
     }
 
     public int loadCricketData(String csvFilePath) {
@@ -47,7 +48,6 @@ public class CricketLeagueAnalyser {
         if(cricketCSVList == null || cricketCSVList.size() == 0){
             throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
-        Comparator<MostRunCsv> cricketComparator = Comparator.comparing(ipldata -> ipldata.battingAvg);
         this.sort(cricketCSVList,this.sortedMap.get(sortedField));
         Collections.reverse(cricketCSVList);
         String sortedStateCensus=new Gson().toJson(cricketCSVList);
