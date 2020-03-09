@@ -116,4 +116,16 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Lasith Malinga",mostBowlingCsvs[0].playerName);
         }catch (CricketAnalyserException e){}
     }
+
+    //Best Bowling Avg With Best String Rate
+
+    @Test
+    public void givenCricketMostBowlingDataWithStrikeRate_WhenSorted_ShouldReturnPlayerName() {
+        try {
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.WICKETS,IPL_MOST_BOWLING_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BESTBOWLINGAVGWITHSTRIKERATE);
+            MostBowlingCsv[] mostBowlingCsv = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
+            Assert.assertEquals("Krishnappa Gowtham",mostBowlingCsv[0].playerName);
+        }catch (CricketAnalyserException e){}
+    }
 }

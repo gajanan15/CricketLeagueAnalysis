@@ -25,8 +25,8 @@ public class CricketLeagueAnalyser {
         this.cricketCsvDtoMap = new HashMap<>();
 
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.avg));
-        Comparator<CricketCsvDto> avrage = Comparator.comparing(ipldata -> ipldata.avg);
-        this.sortedMap.put(SortedField.AVERAGEWITHSTRIKERATE,avrage.thenComparing(ipldata -> ipldata.strikRate));
+        Comparator<CricketCsvDto> average = Comparator.comparing(ipldata -> ipldata.avg);
+        this.sortedMap.put(SortedField.AVERAGEWITHSTRIKERATE,average.thenComparing(ipldata -> ipldata.strikRate));
 
         this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
 
@@ -44,6 +44,9 @@ public class CricketLeagueAnalyser {
 
         Comparator<CricketCsvDto> fourAndFiveWickets = Comparator.comparing(ipldata -> ipldata.fiveWickets+ipldata.fourWickets);
         this.sortedMap.put(SortedField.BESTSTRIKERATEWITHFOURANDFIVEWICKETS,fourAndFiveWickets.thenComparing(ipldata -> ipldata.strikRate));
+
+
+        this.sortedMap.put(SortedField.BESTBOWLINGAVGWITHSTRIKERATE,average.thenComparing(ipldata -> ipldata.strikRate));
     }
 
     public int loadCricketData(Cricket cricket,String... csvFilePath) {
