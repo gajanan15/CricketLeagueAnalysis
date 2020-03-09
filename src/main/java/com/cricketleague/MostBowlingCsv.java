@@ -18,4 +18,7 @@ public class MostBowlingCsv {
 
     @CsvBindByName(column = "SR",required = true)
     public double strikRate;
+
+    @CsvBindByName(column = "Econ",required = true)
+    public double economy;
 }

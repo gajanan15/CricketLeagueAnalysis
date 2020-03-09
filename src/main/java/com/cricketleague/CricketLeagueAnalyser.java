@@ -25,11 +25,22 @@ public class CricketLeagueAnalyser {
         this.cricketCsvDtoMap = new HashMap<>();
 
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.avg));
+        Comparator<CricketCsvDto> avrage = Comparator.comparing(ipldata -> ipldata.avg);
+        this.sortedMap.put(SortedField.AVERAGEWITHSTRIKERATE,avrage.thenComparing(ipldata -> ipldata.strikRate));
+
         this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
+
         this.sortedMap.put(SortedField.TOTALSIXANDFOUR,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
         Comparator<CricketCsvDto> csvDtoComparator = Comparator.comparing(ipldata -> ipldata.four+ipldata.six);
         this.sortedMap.put(SortedField.TOTALSIXANDFOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.four+ipldata.six));
+
+        this.sortedMap.put(SortedField.BESTSTRIKERATEWITHSIXANDFOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.strikRate));
+
         this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
+        Comparator<CricketCsvDto> maxRun = Comparator.comparing(ipldata -> ipldata.runs);
+        this.sortedMap.put(SortedField.MAXRUNWITHBESTAVG,maxRun.thenComparing(ipldata -> ipldata.avg));
+
+        this.sortedMap.put(SortedField.Economy,Comparator.comparing(ipldata -> ipldata.economy));
     }
 
     public int loadCricketData(Cricket cricket,String... csvFilePath) {

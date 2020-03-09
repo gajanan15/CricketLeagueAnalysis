@@ -1,5 +1,5 @@
 package com.cricketleague;
 
 public enum SortedField {
-    AVG,StrikeRate,RUN, TOTALSIXANDFOUR;
+    AVG,StrikeRate,RUN, TOTALSIXANDFOUR, AVERAGEWITHSTRIKERATE, MAXRUNWITHBESTAVG, BESTSTRIKERATEWITHSIXANDFOUR, Economy;
 }
