@@ -1,6 +1,5 @@
 package com.cricketleague;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CricketRunsAdapter extends CricketAdapter {

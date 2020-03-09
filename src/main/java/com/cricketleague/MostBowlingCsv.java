@@ -15,4 +15,7 @@ public class MostBowlingCsv {
 
     @CsvBindByName(column = "5w",required = true)
     public int fiveWicket;
+
+    @CsvBindByName(column = "SR",required = true)
+    public double strikRate;
 }

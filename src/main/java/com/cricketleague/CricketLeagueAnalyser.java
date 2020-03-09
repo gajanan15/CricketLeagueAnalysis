@@ -26,7 +26,9 @@ public class CricketLeagueAnalyser {
 
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.avg));
         this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
-        this.sortedMap.put(SortedField.MAXIMUM_SIX,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
+        this.sortedMap.put(SortedField.TOTALSIXANDFOUR,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
+        Comparator<CricketCsvDto> csvDtoComparator = Comparator.comparing(ipldata -> ipldata.four+ipldata.six);
+        this.sortedMap.put(SortedField.TOTALSIXANDFOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.four+ipldata.six));
         this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
     }
 
@@ -36,7 +38,7 @@ public class CricketLeagueAnalyser {
     }
 
     public String getSortedCricketData(SortedField sortedField) {
-
+        cricketDTOCSVList = cricketCsvDtoMap.values().stream().collect(Collectors.toList());
         if(cricketDTOCSVList == null || cricketDTOCSVList.size() == 0){
             throw new CricketAnalyserException("No Data",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
         }
