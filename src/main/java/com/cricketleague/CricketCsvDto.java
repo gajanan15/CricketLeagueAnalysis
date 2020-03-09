@@ -10,6 +10,7 @@ public class CricketCsvDto {
     public int fourWickets;
     public int fiveWickets;
     public double economy;
+    public int wickets;
 
     public CricketCsvDto(MostRunCsv mostRunCsv) {
      runs = mostRunCsv.runs;
@@ -27,5 +28,6 @@ public class CricketCsvDto {
        fourWickets = mostBowlingCsv.fourWicket;
        fiveWickets = mostBowlingCsv.fiveWicket;
        economy = mostBowlingCsv.economy;
+       wickets = mostBowlingCsv.wickets;
     }
 }

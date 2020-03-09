@@ -16,6 +16,7 @@ public class CricketLeagueAnalyserTest {
         cricketLeagueAnalyser = new CricketLeagueAnalyser();
     }
 
+    //Find Top Batting Average Player Name
     @Test
     public void givenCricketMostRunData_WhenSorted_ShouldReturnMostRun() {
         try {
@@ -26,6 +27,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Find Top Strike Rate Player Name
     @Test
     public void givenCricketMostRunData_When_Sorted_ShouldReturnStrikeRate() {
         try{
@@ -36,6 +38,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Player Who Hit Maximum Six And Four
     @Test
     public void givenCricketMostSixAndFour_When_Sorted_ShouldReturnTotalSixAndFour() {
         try{
@@ -45,6 +48,8 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Andre Russell",mostRunCsv[0].playerName);
         }catch (CricketAnalyserException e){}
     }
+
+   // Player Who Had Best Striking Rates With Six And Four
 
     @Test
     public void givenCricketMostSixAndFour_When_Sorted_ShouldReturnMaximumStrikeRates() {
@@ -56,6 +61,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Player Who Had Great Averages With The Best Striking Rates
     @Test
     public void givenCricketMostRunData_WhenStrikeRates_ShouldReturnMaximumAverages() {
         try{
@@ -66,6 +72,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Player Who Hit Maximum Runs With Best Averages
     @Test
     public void givenCricketMostRunData_WhenSortedBattingAverage_ShouldReturnMaximumRun() {
         try{
@@ -76,6 +83,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Find Top Bowling Average Player Name
     @Test
     public void givenCricketMostBowlingData_WhenSorted_ShouldReturnTopBowlingAverage() {
         try {
@@ -86,6 +94,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Find Top Strike Rate Player Name
     @Test
     public void givenCricketMostBowlingData_WhenSorted_ShouldReturnTopStrikeRates() {
         try{
@@ -96,6 +105,7 @@ public class CricketLeagueAnalyserTest {
         }catch (CricketAnalyserException e){}
     }
 
+    //Find Best Economy
     @Test
     public void givenCricketMostBowlingData_WhenSorted_ShouldReturnBestEconomy() {
         try{
@@ -126,6 +136,18 @@ public class CricketLeagueAnalyserTest {
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BESTBOWLINGAVGWITHSTRIKERATE);
             MostBowlingCsv[] mostBowlingCsv = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
             Assert.assertEquals("Krishnappa Gowtham",mostBowlingCsv[0].playerName);
+        }catch (CricketAnalyserException e){}
+    }
+
+    //Maximum Wickets With Best Bowling Average
+
+    @Test
+    public void givenCricketMostBowlingDataWithBestBowlingAverage_WhenSorted_ShouldReturnPlayerName() {
+        try {
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.WICKETS,IPL_MOST_BOWLING_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.MAXIMUMWICKETWITHBESTBOWLINGAVG);
+            MostBowlingCsv[] mostBowlingCsvs = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
+            Assert.assertEquals("Imran Tahir",mostBowlingCsvs[0].playerName);
         }catch (CricketAnalyserException e){}
     }
 }

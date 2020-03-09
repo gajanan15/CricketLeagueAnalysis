@@ -21,4 +21,7 @@ public class MostBowlingCsv {
 
     @CsvBindByName(column = "Econ",required = true)
     public double economy;
+
+    @CsvBindByName(column = "Wkts",required = true)
+    public int wickets;
 }
