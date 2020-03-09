@@ -12,6 +12,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
+
+    public enum Cricket{RUNS,WICKETS};
+
     List <CricketCsvDto> cricketDTOCSVList;
     Map<SortedField,Comparator<CricketCsvDto>> sortedMap;
     Map<String,CricketCsvDto> cricketCsvDtoMap;
@@ -27,21 +30,9 @@ public class CricketLeagueAnalyser {
         this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
     }
 
-    public int loadCricketData(String csvFilePath) {
-        try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){
-            IcsvBuilder icsvBuilder = CsvBuilderFactory.getOpenCsvBuilder();
-            Iterator<MostRunCsv> mostRunCsvIterator = icsvBuilder.getCsvFileIterator(reader,MostRunCsv.class);
-
-            while (mostRunCsvIterator.hasNext()){
-                MostRunCsv mostRunCsv = mostRunCsvIterator.next();
-                this.cricketCsvDtoMap.put(mostRunCsv.playerName,new CricketCsvDto(mostRunCsv));
-            }
-
-            cricketDTOCSVList = cricketCsvDtoMap.values().stream().collect(Collectors.toList());
-            return cricketDTOCSVList.size();
-        }catch (IOException e){
-           throw  new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
-        }
+    public int loadCricketData(Cricket cricket,String... csvFilePath) {
+        cricketCsvDtoMap = CensusAdapterFactory.getCricketData(cricket,csvFilePath);
+        return cricketCsvDtoMap.size();
     }
 
     public String getSortedCricketData(SortedField sortedField) {
@@ -65,22 +56,6 @@ public class CricketLeagueAnalyser {
                     cricketDTOCSVList.set(j+1,run1);
                 }
             }
-        }
-    }
-
-    public int loadBowlingData(String csvFilePath) {
-        try(Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){
-            IcsvBuilder icsvBuilder = CsvBuilderFactory.getOpenCsvBuilder();
-            Iterator<MostBowlingCsv> mostBowlingCsvIterator = icsvBuilder.getCsvFileIterator(reader,MostBowlingCsv.class);
-
-            while (mostBowlingCsvIterator.hasNext()){
-                MostBowlingCsv mostBowlingCsv = mostBowlingCsvIterator.next();
-                this.cricketCsvDtoMap.put(mostBowlingCsv.playerName,new CricketCsvDto(mostBowlingCsv));
-            }
-            cricketDTOCSVList = cricketCsvDtoMap.values().stream().collect(Collectors.toList());
-            return cricketDTOCSVList.size();
-        }catch (IOException e){
-            throw  new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
         }
     }
 }

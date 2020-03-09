@@ -19,7 +19,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostRunData_WhenSorted_ShouldReturnMostRun() {
         try {
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.AVG);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(83.2, mostRunCsv[0].avg, 0.0);
@@ -29,7 +29,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostRunData_When_Sorted_ShouldReturnStrikeRate() {
         try{
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedStrikeRateData = cricketLeagueAnalyser.getSortedCricketData(SortedField.StrikeRate);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedStrikeRateData, MostRunCsv[].class);
             Assert.assertEquals(333.33,mostRunCsv[0].strikRate,0.0);
@@ -39,7 +39,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostSixAndFour_When_Sorted_ShouldReturnTotalSixAndFour() {
         try{
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.MAXIMUM_SIX);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(83,mostRunCsv[0].six+mostRunCsv[0].four);
@@ -49,7 +49,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostSixAndFour_When_Sorted_ShouldReturnMaximumStrikeRates() {
         try{
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.MAXIMUM_SIX);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(204.81,mostRunCsv[0].strikRate,0.0);
@@ -59,7 +59,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostRunData_WhenStrikeRates_ShouldReturnMaximumAverages() {
         try{
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.AVG);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(134.62,mostRunCsv[0].strikRate,0.0);
@@ -69,7 +69,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostRunData_WhenSortedBattingAverage_ShouldReturnMaximumRun() {
         try{
-            cricketLeagueAnalyser.loadCricketData(IPL_MOST_RUNS_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.RUN);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals(69.2,mostRunCsv[0].avg,0.0);
@@ -79,7 +79,7 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketMostBowlingData_WhenSorted_ShouldReturnTopBowlingAverage() {
         try {
-            cricketLeagueAnalyser.loadBowlingData(IPL_MOST_BOWLING_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.WICKETS,IPL_MOST_BOWLING_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.AVG);
             MostBowlingCsv[] mostBowlingCsvs = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
             Assert.assertEquals(166.0,mostBowlingCsvs[0].avg,0.0);
