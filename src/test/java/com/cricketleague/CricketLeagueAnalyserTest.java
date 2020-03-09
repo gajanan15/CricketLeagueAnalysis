@@ -105,4 +105,15 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Ben Cutting",mostBowlingCsv[0].playerName);
         }catch (CricketAnalyserException e){}
     }
+
+    //Best Strike Rate With 4W and 5W
+    @Test
+    public void givenCricketMostBowlingDataWithWickets_WhenSorted_ShouldReturnPlayerName() {
+        try{
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.WICKETS,IPL_MOST_BOWLING_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BESTSTRIKERATEWITHFOURANDFIVEWICKETS);
+            MostBowlingCsv[] mostBowlingCsvs = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
+            Assert.assertEquals("Lasith Malinga",mostBowlingCsvs[0].playerName);
+        }catch (CricketAnalyserException e){}
+    }
 }

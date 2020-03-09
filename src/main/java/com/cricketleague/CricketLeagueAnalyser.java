@@ -41,6 +41,9 @@ public class CricketLeagueAnalyser {
         this.sortedMap.put(SortedField.MAXRUNWITHBESTAVG,maxRun.thenComparing(ipldata -> ipldata.avg));
 
         this.sortedMap.put(SortedField.Economy,Comparator.comparing(ipldata -> ipldata.economy));
+
+        Comparator<CricketCsvDto> fourAndFiveWickets = Comparator.comparing(ipldata -> ipldata.fiveWickets+ipldata.fourWickets);
+        this.sortedMap.put(SortedField.BESTSTRIKERATEWITHFOURANDFIVEWICKETS,fourAndFiveWickets.thenComparing(ipldata -> ipldata.strikRate));
     }
 
     public int loadCricketData(Cricket cricket,String... csvFilePath) {
