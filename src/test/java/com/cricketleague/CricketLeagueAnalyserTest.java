@@ -146,19 +146,31 @@ public class CricketLeagueAnalyserTest {
         try {
             cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.WICKETS,IPL_MOST_BOWLING_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.MAXIMUM_WICKET_WITH_BEST_BOWLING_AVG);
-            MostBowlingCsv[] mostBowlingCsvs = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
-            Assert.assertEquals("Imran Tahir",mostBowlingCsvs[0].playerName);
+            MostBowlingCsv[] mostBowlingCsv = new Gson().fromJson(sortedCricketData, MostBowlingCsv[].class);
+            Assert.assertEquals("Imran Tahir",mostBowlingCsv[0].playerName);
         }catch (CricketAnalyserException e){}
     }
 
+    //Best Batting And Bowling Average
     @Test
     public void givenCricketDataBestBattingAndBowlingAverage_WhenSorted_ShouldReturnPlayerName() {
         try {
             cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH,IPL_MOST_BOWLING_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BEST_BATTING_BOWLING_AVG);
-            System.out.println(sortedCricketData);
             MostRunCsv[] mostBowlingCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals("Marcus Stoinis",mostBowlingCsv[0].playerName);
+        }catch (CricketAnalyserException e){}
+    }
+
+    //Find AllRounder (Maximum Wicket And Run)
+    @Test
+    public void givenCricketDataBestAllRounders_WhenSorted_ShouldReturnPlayerName() {
+        try{
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.ALLROUNDERSMAIN,IPL_MOST_RUNS_FILE_PATH,IPL_MOST_BOWLING_FILE_PATH);
+            String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BEST_ALLROUNDER);
+            System.out.println(sortedCricketData);
+            MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
+            Assert.assertEquals("Hardik Pandya",mostRunCsv[0].playerName);
         }catch (CricketAnalyserException e){}
     }
 }

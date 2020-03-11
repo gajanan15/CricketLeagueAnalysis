@@ -12,6 +12,7 @@ public class CricketCsvDto {
     public double economy;
     public int wickets;
     public double bowlerAvg;
+    public int AllWicket;
 
     public CricketCsvDto(MostRunCsv mostRunCsv) {
      runs = mostRunCsv.runs;

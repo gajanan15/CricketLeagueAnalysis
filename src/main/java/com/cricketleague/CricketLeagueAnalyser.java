@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
 
-    public enum Cricket{RUNS,WICKETS};
+    public enum Cricket{RUNS,WICKETS,ALLROUNDERSMAIN};
 
     List <CricketCsvDto> cricketDTOCSVList;
     Map<SortedField,Comparator<CricketCsvDto>> sortedMap;
@@ -29,7 +29,6 @@ public class CricketLeagueAnalyser {
 
         this.sortedMap.put(SortedField.BEST_STRIKE_RATE_WITH_SIX_AND_FOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.strikRate));
 
-        this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
         Comparator<CricketCsvDto> maxRun = Comparator.comparing(ipldata -> ipldata.runs);
         this.sortedMap.put(SortedField.MAX_RUN_WITH_BEST_AVG,maxRun.thenComparing(ipldata -> ipldata.avg));
 
@@ -45,6 +44,8 @@ public class CricketLeagueAnalyser {
 
 
         this.sortedMap.put(SortedField.BEST_BATTING_BOWLING_AVG, new CompareAverage());
+
+        this.sortedMap.put(SortedField.BEST_ALLROUNDER, new AllRounders());
     }
 
     public int loadCricketData(Cricket cricket,String... csvFilePath) {
