@@ -11,6 +11,7 @@ public class CricketCsvDto {
     public int fiveWickets;
     public double economy;
     public int wickets;
+    public double bowlerAvg;
 
     public CricketCsvDto(MostRunCsv mostRunCsv) {
      runs = mostRunCsv.runs;
@@ -22,6 +23,7 @@ public class CricketCsvDto {
     }
 
     public CricketCsvDto(MostBowlingCsv mostBowlingCsv) {
+        bowlerAvg = mostBowlingCsv.avg;
         avg = mostBowlingCsv.avg;
         strikRate = mostBowlingCsv.strikRate;
         playerName = mostBowlingCsv.playerName;

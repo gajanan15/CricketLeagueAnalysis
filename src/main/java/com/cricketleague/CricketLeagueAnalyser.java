@@ -1,13 +1,7 @@
 package com.cricketleague;
 
 import com.google.gson.Gson;
-import com.jarfile.CsvBuilderFactory;
-import com.jarfile.IcsvBuilder;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,33 +20,35 @@ public class CricketLeagueAnalyser {
 
         this.sortedMap.put(SortedField.AVG,Comparator.comparing(ipldata -> ipldata.avg));
         Comparator<CricketCsvDto> average = Comparator.comparing(ipldata -> ipldata.avg);
-        this.sortedMap.put(SortedField.AVERAGEWITHSTRIKERATE,average.thenComparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.AVERAGE_WITH_STRIKE_RATE,average.thenComparing(ipldata -> ipldata.strikRate));
 
-        this.sortedMap.put(SortedField.StrikeRate,Comparator.comparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.Strike_Rate,Comparator.comparing(ipldata -> ipldata.strikRate));
 
-        this.sortedMap.put(SortedField.TOTALSIXANDFOUR,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
+        this.sortedMap.put(SortedField.TOTAL_SIX_AND_FOUR,Comparator.comparing(ipldata -> ipldata.four+ipldata.six));
         Comparator<CricketCsvDto> csvDtoComparator = Comparator.comparing(ipldata -> ipldata.four+ipldata.six);
-        this.sortedMap.put(SortedField.TOTALSIXANDFOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.four+ipldata.six));
 
-        this.sortedMap.put(SortedField.BESTSTRIKERATEWITHSIXANDFOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.BEST_STRIKE_RATE_WITH_SIX_AND_FOUR,csvDtoComparator.thenComparing(ipldata -> ipldata.strikRate));
 
         this.sortedMap.put(SortedField.RUN,Comparator.comparing(ipldata -> ipldata.runs));
         Comparator<CricketCsvDto> maxRun = Comparator.comparing(ipldata -> ipldata.runs);
-        this.sortedMap.put(SortedField.MAXRUNWITHBESTAVG,maxRun.thenComparing(ipldata -> ipldata.avg));
+        this.sortedMap.put(SortedField.MAX_RUN_WITH_BEST_AVG,maxRun.thenComparing(ipldata -> ipldata.avg));
 
         this.sortedMap.put(SortedField.Economy,Comparator.comparing(ipldata -> ipldata.economy));
 
         Comparator<CricketCsvDto> fourAndFiveWickets = Comparator.comparing(ipldata -> ipldata.fiveWickets+ipldata.fourWickets);
-        this.sortedMap.put(SortedField.BESTSTRIKERATEWITHFOURANDFIVEWICKETS,fourAndFiveWickets.thenComparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.BEST_STRIKE_RATE_WITH_FOUR_AND_FIVE_WICKETS,fourAndFiveWickets.thenComparing(ipldata -> ipldata.strikRate));
 
-        this.sortedMap.put(SortedField.BESTBOWLINGAVGWITHSTRIKERATE,average.thenComparing(ipldata -> ipldata.strikRate));
+        this.sortedMap.put(SortedField.BEST_BOWLING_AVG_WITH_STRIKE_RATE,average.thenComparing(ipldata -> ipldata.strikRate));
 
         Comparator<CricketCsvDto> maxWickets = Comparator.comparing(ipldata -> ipldata.wickets);
-        this.sortedMap.put(SortedField.MAXIMUMWICKETWITHBESTBOWLINGAVG,maxWickets.thenComparing(ipldata -> ipldata.avg));
+        this.sortedMap.put(SortedField.MAXIMUM_WICKET_WITH_BEST_BOWLING_AVG,maxWickets.thenComparing(ipldata -> ipldata.avg));
+
+
+        this.sortedMap.put(SortedField.BEST_BATTING_BOWLING_AVG, new CompareAverage());
     }
 
     public int loadCricketData(Cricket cricket,String... csvFilePath) {
-        cricketCsvDtoMap = CensusAdapterFactory.getCricketData(cricket,csvFilePath);
+        cricketCsvDtoMap = CricketAdapterFactory.getCricketData(cricket,csvFilePath);
         return cricketCsvDtoMap.size();
     }
 

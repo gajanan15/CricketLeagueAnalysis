@@ -1,9 +1,8 @@
 package com.cricketleague;
 
-import javax.swing.*;
 import java.util.Map;
 
-public class CensusAdapterFactory {
+public class CricketAdapterFactory {
     public static Map<String,CricketCsvDto> getCricketData(CricketLeagueAnalyser.Cricket cricket,String...csvFilePath){
         if(cricket.equals(CricketLeagueAnalyser.Cricket.RUNS)){
             return new CricketRunsAdapter().loadCricketData(csvFilePath);
