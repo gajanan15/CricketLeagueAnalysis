@@ -10,9 +10,6 @@ public class CricketAdapterFactory {
         if(cricket.equals(CricketLeagueAnalyser.Cricket.WICKETS)){
             return new BowlingAdapter().loadCricketData(csvFilePath);
         }
-        if(cricket.equals(CricketLeagueAnalyser.Cricket.ALLROUNDERSMAIN)){
-            return new AllRounderMain().loadCricketData(csvFilePath);
-        }
         else
             throw new CricketAnalyserException("NO Records Found",CricketAnalyserException.ExceptionType.CRICKET_DATA_NOT_FOUND);
     }

@@ -29,8 +29,10 @@ public class CricketRunsAdapter extends CricketAdapter {
             Iterable<MostBowlingCsv> mostBowlingCsvIterable = ()->mostBowlingCsvIterator;
             StreamSupport.stream(mostBowlingCsvIterable.spliterator(),false)
                     .filter(mostBowlingCsv -> cricketCsvMap.get(mostBowlingCsv.playerName)!=null)
-                    .forEach(mostBowlingCsv -> cricketCsvMap.get(mostBowlingCsv.playerName).bowlerAvg = mostBowlingCsv.avg);
-
+                    .forEach(mostBowlingCsv -> {
+                        cricketCsvMap.get(mostBowlingCsv.playerName).bowlerAvg = mostBowlingCsv.avg;
+                        cricketCsvMap.get(mostBowlingCsv.playerName).AllWicket = mostBowlingCsv.wickets;
+                    });
             return cricketCsvMap.size();
         } catch (IOException e) {
             throw new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);

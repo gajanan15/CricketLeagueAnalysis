@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
 
-    public enum Cricket{RUNS,WICKETS,ALLROUNDERSMAIN};
+    public enum Cricket{RUNS,WICKETS};
 
     List <CricketCsvDto> cricketDTOCSVList;
     Map<SortedField,Comparator<CricketCsvDto>> sortedMap;

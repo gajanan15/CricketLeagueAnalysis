@@ -3,6 +3,7 @@ package com.cricketleague;
 public class CricketCsvDto {
     public int runs;
     public double avg;
+    public double battingAvg;
     public String playerName;
     public double strikRate;
     public int four;
@@ -17,6 +18,7 @@ public class CricketCsvDto {
     public CricketCsvDto(MostRunCsv mostRunCsv) {
      runs = mostRunCsv.runs;
      avg = mostRunCsv.avg;
+     battingAvg = mostRunCsv.avg;
      playerName = mostRunCsv.playerName;
      strikRate = mostRunCsv.strikRate;
      four = mostRunCsv.four;

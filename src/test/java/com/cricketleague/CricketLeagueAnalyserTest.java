@@ -166,9 +166,8 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenCricketDataBestAllRounders_WhenSorted_ShouldReturnPlayerName() {
         try{
-            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.ALLROUNDERSMAIN,IPL_MOST_RUNS_FILE_PATH,IPL_MOST_BOWLING_FILE_PATH);
+            cricketLeagueAnalyser.loadCricketData(CricketLeagueAnalyser.Cricket.RUNS,IPL_MOST_RUNS_FILE_PATH,IPL_MOST_BOWLING_FILE_PATH);
             String sortedCricketData = cricketLeagueAnalyser.getSortedCricketData(SortedField.BEST_ALLROUNDER);
-            System.out.println(sortedCricketData);
             MostRunCsv[] mostRunCsv = new Gson().fromJson(sortedCricketData, MostRunCsv[].class);
             Assert.assertEquals("Hardik Pandya",mostRunCsv[0].playerName);
         }catch (CricketAnalyserException e){}
