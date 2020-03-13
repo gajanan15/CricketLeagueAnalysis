@@ -36,5 +36,8 @@ public abstract  class CricketAdapter extends RuntimeException{
         }catch (IOException e){
             throw  new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
         }
+        catch (RuntimeException e){
+            throw new CricketAnalyserException(e.getMessage(),CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
+        }
     }
 }
